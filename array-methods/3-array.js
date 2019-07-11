@@ -165,3 +165,38 @@ var matrix = [
 ];
 // In the 20×20 grid above What is the greatest product of four adjacent numbers in the same direction (up, down, left, right)?
 // Write a function greatestProduct to find the answer!
+
+let horizontalUtil = (matrix) => {
+  let max = 1;
+  for (let i = 0; i < matrix.length; ++i) {
+    let prod = 1;
+    for (let j = 0; j < matrix[i].length - 4; ++j) {
+      prod = (matrix[i][j] * matrix[i][j + 1] * matrix[i][j + 2] * matrix[i][j + 3]);
+
+      if (max < prod) {
+        max = prod;
+      }
+    }
+  }
+  return max;
+}
+
+let verticalUtil = (matrix) => {
+  let max = 1;
+
+  for (let i = 0; i < matrix.length; ++i) {
+    let prod = 1;
+    for (let j = 0; j < matrix[i].length - 4; ++j) {
+      prod = (matrix[j][i] * matrix[j + 1][i] * matrix[j + 2][i] * matrix[j + 3][i]);
+
+      if (max < prod) {
+        max = prod;
+      }
+    }
+  }
+  return max;
+}
+
+let greatestProduct = (matrix) => (verticalUtil(matrix) > horizontalUtil(matrix)) ? verticalUtil(matrix) : horizontalUtil(matrix); 
+
+console.log( greatestProduct(matrix) );
