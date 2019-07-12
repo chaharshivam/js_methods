@@ -1,34 +1,33 @@
 var data = [
   {
-    name: 'Butters',
+    name: "Butters",
     age: 3,
-    type: 'dog'
+    type: "dog"
   },
   {
-    name: 'Lizzy',
+    name: "Lizzy",
     age: 6,
-    type: 'dog'
+    type: "dog"
   },
   {
-    name: 'Red',
+    name: "Red",
     age: 1,
-    type: 'cat'
+    type: "cat"
   },
   {
-    name: 'Joey',
+    name: "Joey",
     age: 3,
-    type: 'dog'
+    type: "dog"
   },
-   {
-    name: 'Pochi',
+  {
+    name: "Pochi",
     age: 3,
-    type: 'dog'
+    type: "dog"
   }
 ];
 
 // write a function that will sum all of the dogs ages in dog years using for loop.
 // 1 human year = 7 dog year
-// Solution is 105
 
 let totalAge = (data) => data.reduce( (s, currentValue) => {
   if (typeof s == 'object') {
@@ -40,6 +39,10 @@ let totalAge = (data) => data.reduce( (s, currentValue) => {
   
   return s + currentValue.age;
 }); 
+
+// your code goes here
+
+// Solution is 105
 
 console.log( 7 * totalAge(data) );
 // Write the same function using
@@ -60,6 +63,8 @@ let humanYear = (data) => data.map( (animal) => {
 
 console.log( humanYear(data) );
 // 3. reduce - to accumulate total age.
+
 // Solution 105
 
 console.log( 7 * totalAge(data) );
+
