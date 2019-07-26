@@ -14,8 +14,16 @@ var words = [
 
 // Write a function uniqueArray that receives an array of words as a parameter. And remove the duplicates, and return a new array. 
 // (indexOf)
+let uniqueArray = (arr) => {
+  let res = [];
+  arr.forEach( (word, index) => {
+    res[ arr.indexOf(word) ] = arr[index];
+  });
 
+  return res.filter( (elm) => elm != undefined);
+}
 
+console.log( uniqueArray(words) );
 
 var words2 = [
   'machine',
@@ -30,7 +38,10 @@ var words2 = [
 
 // Write a function doesWordExist that will take in an array of words as one argument, and a word to search for as the other. Return true if it exists, otherwise, return false. Don't use indexOf for this one.
 
+let doesWordExist = (arr, element) => arr.includes(element);
 
+console.log(doesWordExist(words2, 'mer')); // returns false
+console.log(doesWordExist(words2, 'matter')); // returns true
 
 
 var words3 = [
@@ -50,9 +61,20 @@ var words3 = [
 
 // Write a function howManyTimes that will take in an array of words as one argument, and a word to search for as the other. The function will return the number of times that word appears in the array.
 
+let howManyTimes = (arr) => {
+  let temp = [];
 
+  for (let i = 0; i < arr.length; ++i) {
+    if(!temp[arr[i]]) {
+      temp[arr[i]] = 0;
+    }
+    temp[arr[i]]++;
+  }
 
+  return temp;
+}
 
+console.log( howManyTimes(words3) );
 
 // Using the reduce() method, how would you sum up the population of every country except China?
 let data = [
@@ -74,6 +96,14 @@ let data = [
   }
 ]
 
+let population = (data) => data.reduce( (s, currentValue) => {
+  if (typeof s === "object") {
+    s = 0;
+  }
+  return s + currentValue.pop; 
+});
+
+console.log(population(data));
 
 // Use reduce method and summorize the collection like
 // { banana: 2, cherry: 3, orange: 3, apple: 2, fig: 1 }
@@ -91,7 +121,24 @@ const fruitBasket = [
   'fig'
 ];
 
+let summorize = (arr) => {
+  let temp = [];
+  
+  arr.reduce( (s, currentValue) => {
+  if (temp[s] == 0) {
+    temp[s]++;
+  }
+  if (!temp[currentValue]) {
+    temp[currentValue] = 0;
+  }
 
+  temp[currentValue]++;
+}, 0);
+  
+  return temp;
+};
+
+console.log(summorize(fruitBasket));
 
 // Bonus Question (Solve only if you have time)
 var matrix = [
@@ -118,3 +165,38 @@ var matrix = [
 ];
 // In the 20×20 grid above What is the greatest product of four adjacent numbers in the same direction (up, down, left, right)?
 // Write a function greatestProduct to find the answer!
+
+let horizontalUtil = (matrix) => {
+  let max = 1;
+  for (let i = 0; i < matrix.length; ++i) {
+    let prod = 1;
+    for (let j = 0; j < matrix[i].length - 4; ++j) {
+      prod = (matrix[i][j] * matrix[i][j + 1] * matrix[i][j + 2] * matrix[i][j + 3]);
+
+      if (max < prod) {
+        max = prod;
+      }
+    }
+  }
+  return max;
+}
+
+let verticalUtil = (matrix) => {
+  let max = 1;
+
+  for (let i = 0; i < matrix.length; ++i) {
+    let prod = 1;
+    for (let j = 0; j < matrix[i].length - 4; ++j) {
+      prod = (matrix[j][i] * matrix[j + 1][i] * matrix[j + 2][i] * matrix[j + 3][i]);
+
+      if (max < prod) {
+        max = prod;
+      }
+    }
+  }
+  return max;
+}
+
+let greatestProduct = (matrix) => (verticalUtil(matrix) > horizontalUtil(matrix)) ? verticalUtil(matrix) : horizontalUtil(matrix); 
+
+console.log( greatestProduct(matrix) );
